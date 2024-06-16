@@ -78,27 +78,29 @@ export default async function Home(props: {
 				<ul className={styles.list}>
 					{taxiList.list.map((taxi) => (
 						<li key={taxi.id}>
-							{taxi.image ? (
-								<Image
-									src={taxi.image}
-									alt={taxi.brand}
-									width={275}
-									height={150}
-								/>
-							) : (
-								<div
-									style={{
-										width: 275,
-										height: 150,
-										backgroundColor: '#ccc',
-									}}
-								/>
-							)}{' '}
-							<br />
-							{taxi.brand} {taxi.model} <br />
-							Номер:{taxi.number} <br />
-							Цена:{taxi.price} <br />
-							Тариф:{taxi.tarif.join(', ')}
+							<Link href={`/${taxi.id}`}>
+								{taxi.image ? (
+									<Image
+										src={taxi.image}
+										alt={taxi.brand}
+										width={275}
+										height={150}
+									/>
+								) : (
+									<div
+										style={{
+											width: 275,
+											height: 150,
+											backgroundColor: '#ccc',
+										}}
+									/>
+								)}{' '}
+								<br />
+								{taxi.brand} {taxi.model} <br />
+								Номер:{taxi.number} <br />
+								Цена:{taxi.price} <br />
+								Тариф:{taxi.tarif.join(', ')}
+							</Link>
 						</li>
 					))}
 				</ul>

@@ -85,6 +85,48 @@ export async function getTaxiList({
 	}
 }
 
+type GetTaxiByIdReturn = {
+	result: number
+	item: {
+		brand: Brand
+		model: Model<Brand>
+		id: number
+		price: number
+		tarif: {
+			[key: number]: string
+		}
+		images: {
+			[key: number]: {
+				id: string
+				image: string
+			}
+		}
+	}
+}
+
+export async function getTaxiById(id: number): Promise<GetTaxiByIdReturn> {
+	const url = new URL(baseUrl)
+	url.searchParams.set('w', 'catalog-car')
+	url.searchParams.set('id', String(id))
+
+	const response = await fetch(url.toString(), {
+		next: {
+			revalidate: process.env.NODE_ENV === 'development' ? 1000 * 60 * 60 : 0,
+		},
+	})
+
+	if (!response.ok) {
+		throw new Error(`Ошибка запроса: ${response.status} ${response.statusText}`)
+	}
+
+	try {
+		const text = await response.text()
+		return (await JSON.parse(text)) as GetTaxiByIdReturn
+	} catch (error) {
+		throw new Error(`Ошибка при чтении ответа: ${error}`)
+	}
+}
+
 export type FilterReturn = {
 	result: number
 	brands: {
