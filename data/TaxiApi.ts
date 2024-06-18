@@ -56,14 +56,12 @@ export async function getTaxiList({
 		}
 	}
 
-	// todo: поиск по тарифу дает странные результаты
-
-	// if (tarif) {
-	// 	const tarifs = tarif.split(',')
-	// 	for (const tarif of tarifs) {
-	// 		url.searchParams.append('tarif[]', decodeURIComponent(tarif))
-	// 	}
-	// }
+	if (tarif) {
+		const tarifs = tarif.split(',')
+		for (const tarif of tarifs) {
+			url.searchParams.append('tarif[]', decodeURIComponent(tarif))
+		}
+	}
 
 	url.searchParams.set('page', String(page))
 

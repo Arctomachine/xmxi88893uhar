@@ -20,7 +20,12 @@ async function Page(props: { params: { id?: string } }) {
 			</nav>
 			<main>
 				<p>Цена: {taxiData.item.price}</p>
-				<p>Тариф: {taxiData.item.tarif[0]}</p>
+				<p>
+					Тариф:{' '}
+					{Object.entries(taxiData.item.tarif)
+						.map((x) => x[1])
+						.join(', ')}
+				</p>
 				{taxiData.item.images ? <Slider images={taxiData.item.images} /> : null}
 			</main>
 		</>

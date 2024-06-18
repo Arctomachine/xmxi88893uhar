@@ -38,7 +38,12 @@ function Filter(props: {
 		modelsFromUrl ? modelsFromUrl.split(',') : [],
 	)
 
-	const allTarifs = Object.values(props.filters.tarif.values)
+	const allTarifs = Object.entries(props.filters.tarif.values).map(
+		([key, value]) => ({
+			label: value,
+			value: key,
+		}),
+	)
 	const [selectedTarifs, setSelectedTarifs] = useState<string[]>(
 		tarifsFromUrl ? tarifsFromUrl.split(',') : [],
 	)
@@ -141,8 +146,7 @@ function Filter(props: {
 					})}
 				</select>
 			</div>
-			<div>Фильтр по тарифу временно не работает</div>
-			{/*<div>
+			<div>
 				<label htmlFor={tarifId}>Тариф</label>
 				<br />
 				<select
@@ -153,12 +157,12 @@ function Filter(props: {
 					onChange={onTarifChange}
 				>
 					{allTarifs.map((tarif) => (
-						<option key={tarif} value={tarif}>
-							{tarif}
+						<option key={tarif.value} value={tarif.value}>
+							{tarif.label}
 						</option>
 					))}
 				</select>
-			</div>*/}
+			</div>
 			<div>
 				<button type="reset">Сбросить</button>
 				<button type="submit">Искать</button>
